@@ -8,5 +8,7 @@ public class test {
         System.out.println("git test");
         System.out.println("git test");
         System.out.println("git test");
+        int i = 10;
+        System.out.println(i);
     }
 }
