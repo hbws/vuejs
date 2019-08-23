@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="js/vue.js"></script>
+</head>
+<body>
+<div id="app">{{message}}<!--Vue的插值表达式双大括号,把data中定义的数据显示到此处 (支持三元表达式和数学运算)-->
+    <!--@ 和 v-on:是一样的-->
+   <input type="button" v-on:click="fun1('vue v-on')" value="vue的click">
+    <!--v-on:Keydown可以用'.'然后指定那个按键(写按键的名字)就可以对某个按键进行操作了-->
+    <input type="text" id="test"v-on:Keydown="fun($event)">
+    <div v-on:mouseover="fun2" id="div2" style="background-color: red; width: 300px;">
+        <textarea v-on:mouseover="fun3($event)">这是文件域</textarea>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript">
+    //创建vue对象
+    new Vue({
+       el:"#app",//由vue接管id为app区域(像id选择器)
+       data:{//赋值
+           message:"hello Vue!"//注意:此处不要加分号.多个数据用逗号分开
+       },
+        methods:{//绑定方法实现
+           fun1:function (msg) {
+               alert("hello");
+               this.message = msg;
+           },
+            //传统按下键盘的事件,先用onkeydown绑定在标签上 event.keycode;可以拿到键盘编码数字
+            //event.preventDefault(); 让键盘不起作用 可以在html代码中用@事件名.prevent(比如@submit.prevent)
+            //$event 它是vue中的事件对象 和我们传统js的event对象是一样的
+            fun:function (event) {
+                  var keycode = event.keyCode;
+               if(keycode<48 || keycode>57){
+                   event.preventDefault();
+               }
+            },
+             <!--传统鼠标移动事件onmouseover,想让事件不传播就用
+             event.stopPropagation();(比如div包含h1 移动h1上还是会触发div就用这个)
+            可以在html代码中用@事件名.stop(比如@mouseover.stop)-->
+            fun2:function () {
+                alert("鼠标移动到div上");
+            },
+            fun3:function (event) {
+                alert("鼠标移动到textarea上");
+                event.stopPropagation();
+            }
+        }
+    });
+</script>
+</html>

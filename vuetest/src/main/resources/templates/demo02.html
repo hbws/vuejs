@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <!--这个就获取值但不会解析html标签-->
+    <div v-text="mess"></div>
+    <!--这个就获取值但会解析html标签-->
+    <div v-html="mess"></div>
+    <!--v-bind是可以给标签的属性赋值-->
+    <input type="text" v-bind:value="ys1">
+    <!--v-bind:可以用:代替-->
+    <input type="text" :value="ys2">
+    <!--是否显示-->
+    <span v-show="false">hello</span>
+    <ul>
+        <!--v-for就是循环遍历数组 arr是数组,item是每次循环的值,index就是下标(list结构)-->
+        <li v-for="(item,index) in arr">
+            {{item}}={{index}}
+        </li>
+        <!--v-for就是循环遍历数组 product是数组,key是属性,value是值(map结构(key/value结构))-->
+        <li v-for="(key,value) in product">{{key}}===={{value}}</li>
+    </ul>
+    <table>
+        <tr>
+            <th>编号</th>
+            <th>姓名</th>
+            <th>价格</th>
+        </tr>
+        <!--v-for就是循环遍历数组 products是对象数组,p是值,index是下标-->
+        <tr  v-for="(p,index) in products">
+            <td>{{index}}</td>
+            <td>{{p.id}}</td>
+            <td>{{p.name}}</td>
+            <td>{{p.price}}</td>
+        </tr>
+    </table>
+    <!--v-model可以拿到对象里的值-->
+    <input type="text" v-model="product.id">
+    <input type="text" v-model="product.name">
+</div>
+
+</body>
+<script type="text/javascript" >
+new Vue({
+    el:"#app",
+    data:{
+        mess:"<h1>Hello</h1>",
+        ys1:"red",
+        ys2:"green",
+        arr:[1,2,3,4,5],
+        product:{
+            id:1,
+            name:"生蚝",
+            price:20
+        },
+        products:[
+            {
+                id:1,
+                name:"生蚝",
+                price:20
+            },
+            {
+                id:2,
+                name:"猪",
+                price:30
+            },
+            {
+                id:3,
+                name:"sh",
+                price:40
+            }
+        ]
+    }
+});
+</script>
+</html>
